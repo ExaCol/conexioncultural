@@ -1,11 +1,9 @@
 /*
-Developed by Tomás Vera & Felipe Triviño
+Developed by EXA
 Version 1.0
 Home Page
 */
 
-import Image from "next/image";
-import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
