@@ -1,11 +1,12 @@
 /*
-Developed by Tomás Vera & Felipe Triviño
+Developed by EXA
 Version 1.0
 Header Component
 */
+
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback , useState } from "react";
 import s from "@/styles/Header.module.css";
 
 const nav = [
@@ -87,7 +88,7 @@ export default function Header() {
       >
         {nav.map(({ targetId, label }) => {
           const href = `#${targetId}`;
-          const isActive = activeId === targetId; // activo por clic
+          const isActive = activeId === targetId;
           return (
             <a
               key={targetId}
