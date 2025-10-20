@@ -24,17 +24,6 @@ export default function Home() {
           explicabo officia?
         </p>
       </section>
-      <section id="map">
-        <h2>Mapa Gualanday</h2>
-        <img src="/map.png" alt="Mapa de Gualanday" />
-        <h3>Ubicación en el Mapa</h3>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis
-          officia quibusdam sed ex numquam ea magnam exercitationem placeat,
-          consequuntur sapiente perferendis maiores labore. Eos, sequi minus!
-          Nihil suscipit doloremque error!
-        </p>
-      </section>
       <section id="about-us">
         <h2>Nuestro Equipo</h2>
         <div>
