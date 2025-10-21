@@ -1,24 +1,19 @@
 "use client";
 import React from "react";
-import styles from "@/styles/Header.module.css";
+import s from "@/styles/Header.module.css";
 
-type Props = {
-  open: boolean;
-  onToggle: () => void;
-};
-
-export function MenuHamburguesa({ open, onToggle }: Props) {
+export function MenuHamburguesa({ open, onToggle }: { open: boolean; onToggle: () => void }) {
   return (
     <button
-      className={styles.toggle}
+      className={s.toggle}
       aria-label={open ? "Cerrar menú" : "Abrir menú"}
       aria-expanded={open}
       aria-controls="mobile-nav"
       onClick={onToggle}
     >
-      <span className={styles.bar} />
-      <span className={styles.bar} />
-      <span className={styles.bar} />
+      <span className={s.bar} />
+      <span className={s.bar} />
+      <span className={s.bar} />
     </button>
   );
 }
