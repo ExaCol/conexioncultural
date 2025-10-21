@@ -9,6 +9,7 @@ import { useCallback, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import s from "@/styles/Header.module.css";
+import { MenuHamburguesa } from "./MenuHamburguesa";
 
 type Item =
   | { type: "route"; label: string; href: string }            
@@ -144,6 +145,7 @@ export default function Header() {
             </a>
           );
         })}
+        <MenuHamburguesa open={open} onToggle={() => setOpen(v => !v)} />
       </nav>
     </header>
   );

@@ -1,122 +1,96 @@
-/*
-Developed by EXA
-Version 1.0
-Header CSS
-*/
-
 .header {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: transparent;
-  border: none;
-  backdrop-filter: saturate(140%) blur(6px);
+  background: var(--background, #fff);
+  border-bottom: 1px solid #eee;
 }
-
 .row {
-  height: 64px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  min-height: 56px;
 }
-
-.logo {
-  font-weight: 700;
-  letter-spacing: 0.2px;
-  text-decoration: none;
-  color: var(--color-black);
+.toggle {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 8px;
+  width: 48px;             
+  height: 48px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;               
+  cursor: pointer;
 }
+.bar {
+  display: block;
+  height: 8px;             
+  width: 100%;
+  border-radius: 9999px;    
+  box-shadow: 0 1px 1px rgba(0,0,0,.08);
+  transition: transform .25s ease, opacity .25s ease, background-color .25s ease;
+}
+.bar:nth-child(1) { background-color: #8BD24A; } /* verde claro */
+.bar:nth-child(2) { background-color: #3BB66B; } /* verde medio */
+.bar:nth-child(3) { background-color: #08A08D; } /* turquesa */
 
+/* Animación al abrir/cerrar */
+.toggle[aria-expanded="true"] .bar:nth-child(1) {
+  transform: translateY(18px) rotate(45deg);
+}
+.toggle[aria-expanded="true"] .bar:nth-child(2) {
+  opacity: 0;
+}
+.toggle[aria-expanded="true"] .bar:nth-child(3) {
+  transform: translateY(-18px) rotate(-45deg);
+}
+.toggle[aria-expanded="true"] .bar {
+  background-color: #3BB66B;
+}
 .desktopNav {
   display: none;
-  gap: 10px;
 }
-
-.link {
-  display: inline-block;
-  padding: 8px 12px;
-  border-radius: 10px;
-  text-decoration: none;
-  color: var(--color-black);
-  border: none;
-  outline: none;
-  transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
-}
-
-.active {
-  background: var(--color-secondary);
-  color: var(--color-white);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-secondary), transparent 85%) inset;
-}
-
-.link:hover:not(.active),
-.link:focus-visible:not(.active) {
-  background: var(--color-secondary);
-  color: var(--color-white);
-  outline: none;
-}
-
-.link:focus-visible {
-  outline: 2px solid var(--color-secondary);
-  outline-offset: 2px;
-}
-
-.toggle {
-  display: inline-flex;
-  width: 40px;
-  height: 40px;
-  border: none;
-  border-radius: 10px;
-  background: transparent;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  gap: 4px;
-}
-
-.bar {
-  width: 18px;
-  height: 2px;
-  background: var(--color-black);
-  transition: transform .2s ease, opacity .2s ease, background-color .2s ease;
-}
-
-.open .bar:nth-child(1) { transform: translateY(4px) rotate(45deg); }
-.open .bar:nth-child(2) { opacity: 0; }
-.open .bar:nth-child(3) { transform: translateY(-4px) rotate(-45deg); }
-
 .mobileNav {
-  background: var(--color-white);
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height .25s ease;
+  position: fixed;
+  inset: 56px 0 0 0; 
+  transform: translateY(-8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  background: var(--background, #fff);
+  display: flex;
+  flex-direction: column; 
+  gap: 8px;               
+  padding: 16px;
 }
-
 .mobileNavOpen {
-  max-height: 240px;
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
 }
-
+.link,
 .mobileLink {
-  display: block;
-  padding: 12px 16px;
+  display: block;          
+  width: 100%;
+  padding: 12px 14px;
   text-decoration: none;
-  color: var(--color-black);
-  transition: background-color .2s ease, color .2s ease;
+  border-radius: 8px;
 }
-
-.mobileLink.active {
-  background: var(--color-secondary);
-  color: var(--color-white);
+.mobileLink:hover,
+.mobileLink:active {
+  background: rgba(0,0,0,.06);
 }
-
-.mobileLink:hover:not(.active),
-.mobileLink:focus-visible:not(.active) {
-  background: var(--color-secondary);
-  color: var(--color-white);
-}
-
-@media (min-width: 768px) {
-  .desktopNav { display: flex; }
-  .toggle { display: none; }
-  .mobileNav { display: none; }
+@media (min-width: 1024px) {
+  .desktopNav {
+    display: flex;
+    gap: 12px;
+  }
+  .toggle {
+    display: none;
+  }
+  .mobileNav {
+    display: none;
+  }
 }
