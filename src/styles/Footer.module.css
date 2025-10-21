@@ -1,0 +1,64 @@
+/*
+Developed by EXA
+Version 1.0
+Footer CSS
+*/
+
+.footer {
+  background: var(--footerColour);
+  border-top: 40px solid var(--border);
+  border-radius: 30px 30px 0px 0px;
+  
+}
+
+.footer .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   
+  gap: 8px;
+}
+
+.footer:hover{
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}
+.brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.brandLink {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 16px auto;
+  text-decoration: none;
+  color: var(--color-black);
+}
+.brandImg {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+.brandText {
+  font-size: 14px;
+  color: var(--color-holder);
+}
+
+.bottom {
+  padding: 0px 0 5px;
+  text-align: center;
+  color: var(--color-holder);
+}
+
+.social{
+  padding-top: 10px;
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
