@@ -48,7 +48,7 @@ export default function Home() {
             </p>
           </div>
           <div>
-            <img src="/Nicolas.png" alt="Nicolás Barreto" />
+            <img src="/Nicolas.png" alt="Nicolás Barreto"/>
             <h3>Nicolás Barreto</h3>
             <p>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas
