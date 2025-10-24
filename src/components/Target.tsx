@@ -6,6 +6,7 @@ Target Component
 
 "use client";
 import React from "react";
+import s from "@/styles/Target.module.css";
 
 export type Place = {
   id: string;
@@ -23,41 +24,36 @@ export default function PlacePopup({ place, onClose }: Props) {
   if (!place) return null;
 
   return (
-    <div
-      role="dialog"
-      aria-modal
-      className="fixed inset-0 z-[9999] flex items-center justify-center"
-    >
+    <div className = {`${s.container}`}>
       <button
-        aria-label="Cerrar"
+        className = {`${s.btnClose}`}
         onClick={onClose}
-        className="absolute inset-0 bg-black/40"
       />
 
-      <div className="relative w-[92%] max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl">
-        <div className="h-48 w-full overflow-hidden bg-gray-100">
+      <div className={`${s.whiteBox}`}>
+        <div className = {`${s.imgContainer}`}>
           <img
             src={place.imageUrl}
             alt={place.nombre}
-            className="h-full w-full object-cover"
+            className={`${s.imgDestination}`}
             onError={(e) => {
-              (e.currentTarget as HTMLImageElement).src = "/fallback.jpg";
+              (e.currentTarget as HTMLImageElement).src = "/rio.png";
             }}
           />
         </div>
 
-        <div className="p-5">
-          <div className="mb-2 flex items-start justify-between">
-            <h3 className="text-lg font-semibold">{place.nombre}</h3>
+        <div className = {`${s.infoContainer}`}>
+          <div className = {`${s.titleContainer}`}>
+            <h3 className={`${s.title}`}>{place.nombre}</h3>
             <button
               onClick={onClose}
-              className="rounded-full border px-3 py-1 text-sm hover:bg-gray-50"
+              className={`${s.btnCloseText}`}
             >
               ✕
             </button>
           </div>
 
-          <p className="text-sm text-gray-700 leading-relaxed">
+          <p className = {`${s.description}`}>
             {place.description}
           </p>
         </div>
