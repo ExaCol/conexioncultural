@@ -1,10 +1,12 @@
 "use client";
+
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import s from "@/styles/Header.module.css";
 import { MenuHamburguesa } from "./MenuHamburguesa";
-import Portal from "./Portal"; 
+import Portal from "./Portal";
 
 type Item =
   | { type: "route"; label: string; href: string }
@@ -24,22 +26,18 @@ export default function Header() {
   const [activeId, setActiveId] = useState<string>("home");
   const pathname = usePathname();
   const router = useRouter();
-
-  // alterna glass/solid
   useEffect(() => {
     const onScroll = () => setAtTop(window.scrollY < 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  // bloquea scroll del documento cuando el drawer está abierto
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
-    return () => { document.documentElement.style.overflow = ""; };
+    return () => {
+      document.documentElement.style.overflow = "";
+    };
   }, [open]);
-
-  // cerrar con Esc
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
@@ -50,7 +48,12 @@ export default function Header() {
   const scrollToId = useCallback((id: string) => {
     const el = document.getElementById(id);
     if (!el) return;
-    const headerH = Number(getComputedStyle(document.documentElement).getPropertyValue("--header-h").replace("px","")) || 64;
+    const headerH =
+      Number(
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--header-h")
+          .replace("px", "")
+      ) || 64;
     const y = el.getBoundingClientRect().top + window.scrollY - headerH - 8;
     window.scrollTo({ top: y, behavior: "smooth" });
     setActiveId(id);
@@ -58,43 +61,102 @@ export default function Header() {
   }, []);
 
   const handleNav = (item: Item) => (e: React.MouseEvent) => {
-    if (item.type === "route") { setOpen(false); return; }
+    if (item.type === "route") {
+      setOpen(false);
+      return;
+    }
     e.preventDefault();
-    if (pathname !== "/") { setOpen(false); router.push(`/#${item.targetId}`); return; }
+    if (pathname !== "/") {
+      setOpen(false);
+      router.push(`/#${item.targetId}`);
+      return;
+    }
     scrollToId(item.targetId);
   };
 
   return (
     <header className={`${s.header} ${atTop ? s.glass : s.solid}`}>
       <div className={`${s.container} ${s.row}`}>
-        <Link href="/" className={s.logo} onClick={() => setOpen(false)}>Conexión Cultural</Link>
-
+        <Link
+          href="/"
+          className={s.logo}
+          onClick={() => setOpen(false)}
+          aria-label="Ir al inicio — Conexión Cultural"
+        >
+          <Image
+            src="/LogoConexiónCulturalSinFondo.png"
+            alt="Conexión Cultural"
+            width={2000}
+            height={600}
+            priority
+            className={s.logoImg}
+          />
+        </Link>
         <nav className={s.desktopNav} aria-label="Principal">
           {nav.map((item) => {
             const key = item.type === "route" ? item.href : item.targetId;
-            const isActive = item.type === "hash" ? activeId === item.targetId : pathname === item.href;
+            const isActive =
+              item.type === "hash"
+                ? activeId === item.targetId
+                : pathname === item.href;
             return item.type === "route" ? (
-              <Link key={key} href={item.href} className={`${s.link} ${isActive ? s.active : ""}`} onClick={() => setOpen(false)}>{item.label}</Link>
+              <Link
+                key={key}
+                href={item.href}
+                className={`${s.link} ${isActive ? s.active : ""}`}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </Link>
             ) : (
-              <a key={key} href={`#${item.targetId}`} onClick={handleNav(item)} className={`${s.link} ${isActive ? s.active : ""}`}>{item.label}</a>
+              <a
+                key={key}
+                href={`#${item.targetId}`}
+                onClick={handleNav(item)}
+                className={`${s.link} ${isActive ? s.active : ""}`}
+              >
+                {item.label}
+              </a>
             );
           })}
         </nav>
-
-        <MenuHamburguesa open={open} onToggle={() => setOpen(v => !v)} />
+        <MenuHamburguesa open={open} onToggle={() => setOpen((v) => !v)} />
       </div>
-
-      {/* SCRIM + DRAWER en Portal ⇒ jamás se quedan debajo */}
       <Portal>
-        <div className={`${s.scrim} ${open ? s.scrimVisible : ""}`} onClick={() => setOpen(false)} aria-hidden="true" />
-        <nav id="mobile-nav" className={`${s.mobileNav} ${open ? s.mobileNavOpen : ""}`} aria-label="Menú móvil">
+        <div
+          className={`${s.scrim} ${open ? s.scrimVisible : ""}`}
+          onClick={() => setOpen(false)}
+          aria-hidden="true"
+        />
+        <nav
+          id="mobile-nav"
+          className={`${s.mobileNav} ${open ? s.mobileNavOpen : ""}`}
+          aria-label="Menú móvil"
+        >
           {nav.map((item) => {
             const key = item.type === "route" ? item.href : item.targetId;
-            const isActive = item.type === "route" ? pathname === item.href : activeId === item.targetId;
+            const isActive =
+              item.type === "route"
+                ? pathname === item.href
+                : activeId === item.targetId;
             return item.type === "route" ? (
-              <Link key={key} href={item.href} className={`${s.mobileLink} ${isActive ? s.active : ""}`} onClick={() => setOpen(false)}>{item.label}</Link>
+              <Link
+                key={key}
+                href={item.href}
+                className={`${s.mobileLink} ${isActive ? s.active : ""}`}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </Link>
             ) : (
-              <a key={key} href={`#${item.targetId}`} onClick={handleNav(item)} className={`${s.mobileLink} ${isActive ? s.active : ""}`}>{item.label}</a>
+              <a
+                key={key}
+                href={`#${item.targetId}`}
+                onClick={handleNav(item)}
+                className={`${s.mobileLink} ${isActive ? s.active : ""}`}
+              >
+                {item.label}
+              </a>
             );
           })}
         </nav>
