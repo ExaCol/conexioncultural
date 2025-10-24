@@ -86,8 +86,8 @@ export default function Header() {
           <Image
             src="/LogoConexiónCulturalSinFondo.png"
             alt="Conexión Cultural"
-            width={2000}
-            height={600}
+            width={160}
+            height={40}
             priority
             className={s.logoImg}
           />
