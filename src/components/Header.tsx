@@ -3,66 +3,92 @@ Developed by EXA
 Version 1.0
 Header Component
 */
-
 "use client";
 
-import { useCallback , useState } from "react";
+import { useCallback, useState } from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import s from "@/styles/Header.module.css";
 
-const nav = [
-  { targetId: "home", label: "Home" },
-  { targetId: "map", label: "Map" },
-  { targetId: "about-us", label: "About Us" },
-  { targetId: "contact-us", label: "Contact Us" },
+type Item =
+  | { type: "route"; label: string; href: string }            
+  | { type: "hash";  label: string; targetId: string };         
+
+const nav: Item[] = [
+  { type: "hash",  targetId: "home",      label: "Home" },
+  { type: "route", href:  "/mapa",        label: "Map" },
+  { type: "route", href:  "/favoritos",   label: "Favorites" },
+  { type: "hash",  targetId: "about-us",  label: "About Us" },
+  { type: "hash",  targetId: "contact-us",label: "Contact Us" },
 ];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const [activeId, setActiveId] = useState<string>(nav[0].targetId);
+  const [activeId, setActiveId] = useState<string>("home");
+  const pathname = usePathname();
+  const router = useRouter();
+
   const scrollToId = useCallback((id: string) => {
-  const el = document.getElementById(id);
-  if (!el) return;
+    const el = document.getElementById(id);
+    if (!el) return;
+    const header = document.querySelector(`.${s.header}`) as HTMLElement | null;
+    const headerH = header?.offsetHeight ?? 0;
+    const y = el.getBoundingClientRect().top + window.scrollY - headerH - 8;
+    window.scrollTo({ top: y, behavior: "smooth" });
+    setActiveId(id);
+    setOpen(false);
+  }, []);
 
-  const header = document.querySelector(`.${s.header}`) as HTMLElement | null;
-  const headerH = header?.offsetHeight ?? 0;
-  const y = el.getBoundingClientRect().top + window.scrollY - headerH - 8;
-
-  window.scrollTo({ top: y, behavior: "smooth" });
-  setActiveId(id);
-  setOpen(false);
-}, []);
-
+  const handleNav = (item: Item) => (e: React.MouseEvent) => {
+    if (item.type === "route") {
+      setOpen(false);
+      return; 
+    }
+    e.preventDefault();
+    if (pathname !== "/") {
+      setOpen(false);
+      router.push(`/#${item.targetId}`);
+      return;
+    }
+    scrollToId(item.targetId);
+  };
 
   return (
     <header className={s.header}>
       <div className={`container ${s.row}`}>
-        <a
-          href="#home"
-          className={s.logo}
-          onClick={e => {
-            e.preventDefault();
-            scrollToId("home");
-          }}
-        >
+        <Link href="/" className={s.logo} onClick={() => setOpen(false)}>
           Conexión Cultural
-        </a>
+        </Link>
 
         <nav className={s.desktopNav} aria-label="Principal">
-          {nav.map(({ targetId, label }) => {
-            const href = `#${targetId}`;
-            const isActive = activeId === targetId; 
+          {nav.map((item) => {
+            const key = item.type === "route" ? item.href : item.targetId;
+            const isActive =
+              item.type === "hash" ? activeId === item.targetId : pathname === item.href;
+
+            if (item.type === "route") {
+              return (
+                <Link
+                  key={key}
+                  href={item.href}
+                  className={`${s.link} ${isActive ? s.active : ""}`}
+                  onClick={() => setOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              );
+            }
+
+            const href = `#${item.targetId}`;
             return (
               <a
-                key={targetId}
+                key={key}
                 href={href}
-                onClick={e => {
-                  e.preventDefault();
-                  scrollToId(targetId);
-                }}
+                onClick={handleNav(item)}
                 aria-current={isActive ? "true" : undefined}
                 className={`${s.link} ${isActive ? s.active : ""}`}
               >
-                {label}
+                {item.label}
               </a>
             );
           })}
@@ -73,7 +99,7 @@ export default function Header() {
           aria-label="Abrir menú"
           aria-expanded={open}
           aria-controls="mobile-nav"
-          onClick={() => setOpen(v => !v)}
+          onClick={() => setOpen((v) => !v)}
         >
           <span className={s.bar} />
           <span className={s.bar} />
@@ -86,20 +112,35 @@ export default function Header() {
         className={`${s.mobileNav} ${open ? s.mobileNavOpen : ""}`}
         aria-label="Menú móvil"
       >
-        {nav.map(({ targetId, label }) => {
-          const href = `#${targetId}`;
-          const isActive = activeId === targetId;
+        {nav.map((item) => {
+          const key = item.type === "route" ? item.href : item.targetId;
+          const isActive =
+            item.type === "route"
+              ? pathname === item.href
+              : activeId === item.targetId;
+
+          if (item.type === "route") {
+            return (
+              <Link
+                key={key}
+                href={item.href}
+                className={`${s.mobileLink} ${isActive ? s.active : ""}`}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </Link>
+            );
+          }
+
+          const href = `#${item.targetId}`;
           return (
             <a
-              key={targetId}
+              key={key}
               href={href}
-              onClick={e => {
-                e.preventDefault();
-                scrollToId(targetId);
-              }}
+              onClick={handleNav(item)}
               className={`${s.mobileLink} ${isActive ? s.active : ""}`}
             >
-              {label}
+              {item.label}
             </a>
           );
         })}
