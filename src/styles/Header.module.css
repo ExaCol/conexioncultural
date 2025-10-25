@@ -1,6 +1,9 @@
 .header {
   position: fixed;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   left: 0;
   right: 0;
   z-index: 50;
@@ -56,10 +59,48 @@
   max-width: 1200px;
   width: 100%;
 }
+  min-height: var(--header-h);
+  padding: 0 16px;
+}
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 95;
+}
+.scrimVisible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+}
 .logo {
   display: inline-flex;
   align-items: center;
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
+  color: inherit;
+  opacity: 0.95;
+  line-height: 0;
+}
+.logoImg {
+  height: 98px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  background: transparent;
+}
+.solid .logo {
+  color: #222;
   color: inherit;
   opacity: 0.95;
   line-height: 0;
@@ -81,7 +122,15 @@
 .link {
   display: inline-block;
   padding: 10px 14px;
+  padding: 10px 14px;
   text-decoration: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  opacity: 0.9;
+}
+.link:hover {
+  opacity: 1;
   border-radius: 8px;
   color: #fff;
   font-size: 14px;
@@ -92,11 +141,15 @@
 }
 .active {
   font-weight: 600;
+  font-weight: 600;
 }
+.solid .link {
+  color: #222;
 .solid .link {
   color: #222;
 }
 .toggle {
+  appearance: none;
   appearance: none;
   background: transparent;
   border: 0;
@@ -105,7 +158,14 @@
   height: 48px;
   display: inline-flex;
   flex-direction: column;
+  border: 0;
+  padding: 8px;
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  flex-direction: column;
   justify-content: center;
+  gap: 10px;
   gap: 10px;
   cursor: pointer;
 }
@@ -116,6 +176,35 @@
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
   transition: transform 0.25s ease, opacity 0.25s ease,
     background-color 0.25s ease;
+  height: 8px;
+  width: 100%;
+  border-radius: 9999px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, opacity 0.25s ease,
+    background-color 0.25s ease;
+}
+.bar:nth-child(1) {
+  background-color: #8bd24a;
+}
+.bar:nth-child(2) {
+  background-color: #3bb66b;
+}
+.bar:nth-child(3) {
+  background-color: #08a08d;
+}
+
+/* Animaciones al abrir el menú */
+.toggle[aria-expanded="true"] .bar:nth-child(1) {
+  transform: translateY(18px) rotate(45deg);
+}
+.toggle[aria-expanded="true"] .bar:nth-child(2) {
+  opacity: 0;
+}
+.toggle[aria-expanded="true"] .bar:nth-child(3) {
+  transform: translateY(-18px) rotate(-45deg);
+}
+.toggle[aria-expanded="true"] .bar {
+  background-color: #3bb66b;
 }
 .bar:nth-child(1) {
   background-color: #8bd24a;
@@ -164,7 +253,32 @@
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
+  position: fixed;
+  top: var(--header-h);
+  right: 0;
+  bottom: 0;
+  width: min(88vw, 380px);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border-left: 1px solid rgba(255, 255, 255, 0.18);
+  border-top-left-radius: 16px;
+  transform: translateX(16px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 110;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .mobileNavOpen {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
   transform: translateX(0);
   opacity: 1;
   pointer-events: auto;
@@ -173,7 +287,13 @@
   display: block;
   width: 100%;
   padding: 14px 8px;
+  width: 100%;
+  padding: 14px 8px;
   text-decoration: none;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.25;
   border-radius: 10px;
   color: #fff;
   font-size: 18px;
@@ -181,8 +301,15 @@
 }
 .mobileLink:hover {
   background: rgba(255, 255, 255, 0.1);
+.mobileLink:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
+@media (min-width: 1024px) {
+  .desktopNav { display: flex; gap: 24px; }
+  .toggle { display: none; }         
+  .mobileNav { display: none !important; }
+  .scrim { display: none !important; } 
 @media (min-width: 1024px) {
   .desktopNav { display: flex; gap: 24px; }
   .toggle { display: none; }         

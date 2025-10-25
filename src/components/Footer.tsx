@@ -12,7 +12,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer id = "footer" className={s.footer}>
-      <div className="container">
+      <div className={s.container}>
         <div className={s.social}>
           <a href="https://www.instagram.com/_conexioncultural_" target="_blank" rel="noopener noreferrer" className={s.logoLink} arial-label="Instagram">
             <Image src="/Instagram.png" alt="Instagram" width={60} height={60}/>
