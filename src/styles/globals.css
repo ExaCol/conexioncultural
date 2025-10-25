@@ -8,12 +8,17 @@ Global Styles
 
 
 :root {
+  --header-h: 64px;
   --background: #F4ECC6;
   --foreground: #000;
   --footerColour: #56833D;
+  --z-header: 1000;
+  --z-scrim: 2147482000;
+  --z-drawer: 2147483000;
 }
-  
-
+.page{
+  padding-top: calc(env(safe-area-inset-top, 0) + var(--header-h));
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -34,7 +39,7 @@ body {
 }
 
 #home{
-  background-image: url('/iglesia.png'); /* esta img la recicle mientras esa gente manda algo decente*/
+  background-image: url('/image.png'); /* esta img la recicle mientras esa gente manda algo decente*/
   background-repeat: no-repeat;   
   background-position: center;    
   background-size: cover; 
@@ -105,6 +110,9 @@ h2{
   width: 15rem;
   height: auto;
   margin: auto;
+  margin-top: 1rem;
+  
+
 }
 
 
@@ -141,12 +149,14 @@ p{
   margin: .3rem;
   border: 2px solid #ccc;
   border-radius: 15%;
+  
 }
 
 #team-members div h3{
   text-align: center;
   font-size: 1.5rem;
   margin: 1rem auto;
+  width: 100%;
 }
 
 #home p{
@@ -155,6 +165,7 @@ p{
   margin-right: 10%;
   font-size: 1.3rem;
   color: white;
+  
 }
 
 #home h1{
@@ -163,5 +174,6 @@ p{
   padding-left: 1rem;
   font-size: 5rem;
   color: white;
+  line-height: 5.3rem;
 }
     }

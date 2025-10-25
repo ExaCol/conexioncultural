@@ -1,5 +1,12 @@
+import React from "react";
+import styles from "@/styles/Card.module.css";
+import Image from "next/image";
+import Link from "next/link";
+
+import { notFound } from "next/navigation";
+
 interface PageProps {
-  params: { id: string };
+  params: Promise <{ id: string }>;
 }
 
 const favoritosData = [
@@ -29,21 +36,31 @@ const favoritosData = [
   },
 ];
 
-export default function FavoritoPage({ params }: PageProps) {
-  const idNum = Number(params.id);
-  const favorito = favoritosData.find((f) => f.id === idNum);
+export default async function FavoritoPage({ params }: PageProps) {
+  const {id} = await params;
+  const idNumber = Number(id);
+
+  if (!Number.isFinite(idNumber)) notFound();
+
+  const favorito = favoritosData.find((f) => f.id === idNumber);
+  if (!favorito) notFound();
 
   return (
     <div>
-      <h1>Detalle del Favorito #{favorito!.id}</h1>
-      <h2>{favorito!.title}</h2>
-      <p>{favorito!.description}</p>
-      <p>{favorito!.details}</p>
-      <img
-        src={favorito!.imageUrl}
-        alt={favorito!.title}
-        style={{ maxWidth: 400, height: "auto" }}
-      />
+      <article className={styles.card}>
+        <Image
+          className={styles.media}
+          src={favorito.imageUrl}
+          alt={favorito.title}
+          width={300}
+          height={350}
+        />
+        <div className={styles.body}>
+          <h1 className={styles.title}>{favorito.title}</h1>
+          <p className={styles.short}>{favorito.description}</p>
+          <p className={styles.long}>{favorito.details}</p>
+        </div>
+      </article>
     </div>
   );
 }
