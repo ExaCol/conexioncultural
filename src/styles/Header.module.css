@@ -10,11 +10,7 @@
   will-change: backdrop-filter, background;
 }
 .glass {
-  background: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0.25),
-    rgba(0, 0, 0, 0.15)
-  );
+  background: rgba(0,0,0,0.18);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
