@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/styles/Card.module.css";
+import s from "@/styles/Card.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -34,33 +34,33 @@ const favoritosData = [
 export default function Favoritos() {
   return (
     <div>
-      <h1>Favoritos</h1>
-      <section className={styles.list}>
+      <h1 className={s.pageTitle}>Favoritos</h1>
+      <section className={s.list}>
         {favoritosData.map((favorito) => (
           <Link
             key={favorito.id}
             href={`/favoritos/${favorito.id}`}
             aria-label={`Ver detalle de ${favorito.title}`}
           >
-            <div className={styles.body}>
-              <h2 className={styles.title}>{favorito.title}</h2>
-            </div>
-            <Image
-              className={styles.media}
-              src={favorito.imageUrl}
-              alt={favorito.title}
-              width={800}
-              height={500}
-              priority={false}
-            />
-            <div className={styles.body}>
-              <p className={styles.short}>{favorito.description}</p>
-            </div>
-            {/*
+            <article className={s.card}>
+              <Image
+                className={s.media}
+                src={favorito.imageUrl}
+                alt={favorito.title}
+                width={800}
+                height={500}
+                priority={false}
+              />
+              <div className={s.body}>
+                <h2 className={s.title}>{favorito.title}</h2>
+                <p className={s.short}>{favorito.description}</p>
+              </div>
+              {/*
                 <h2>{favorito.title}</h2>
                 <img src={favorito.imageUrl} alt={favorito.title} width={300} />
                 <p>{favorito.description}</p>
                 */}
+            </article>
           </Link>
         ))}
       </section>

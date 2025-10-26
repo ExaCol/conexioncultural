@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/styles/Card.module.css";
+import s from "@/styles/Card.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -46,19 +46,19 @@ export default async function FavoritoPage({ params }: PageProps) {
   if (!favorito) notFound();
 
   return (
-    <div>
-      <article className={styles.card}>
+    <div className={s.center}>
+      <article className={s.card}>
         <Image
-          className={styles.media}
+          className={s.media}
           src={favorito.imageUrl}
           alt={favorito.title}
           width={300}
           height={350}
         />
-        <div className={styles.body}>
-          <h1 className={styles.title}>{favorito.title}</h1>
-          <p className={styles.short}>{favorito.description}</p>
-          <p className={styles.long}>{favorito.details}</p>
+        <div className={s.body}>
+          <h1 className={s.title}>{favorito.title}</h1>
+          <p className={s.short}>{favorito.description}</p>
+          <p className={s.long}>{favorito.details}</p>
         </div>
       </article>
     </div>
