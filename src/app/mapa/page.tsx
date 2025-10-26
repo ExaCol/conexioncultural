@@ -20,10 +20,9 @@ export default function MapaGualanday() {
       <Mapa />
       <h3>Ubicación en el Mapa</h3>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis
-        officia quibusdam sed ex numquam ea magnam exercitationem placeat,
-        consequuntur sapiente perferendis maiores labore. Eos, sequi minus!
-        Nihil suscipit doloremque error!
+        Aquí puedes ver la localización exacta de Gualanday, Coello Tolima en el
+        mapa. Da click en el botón de navegación para ver la descripción del
+        destino.
       </p>
     </div>
   );
