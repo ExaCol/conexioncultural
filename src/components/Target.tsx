@@ -5,14 +5,14 @@ Target Component
 */
 
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import s from "@/styles/Target.module.css";
 
 export type Place = {
   id: string;
   nombre: string;
   description: string;
-  imageUrl: string; 
+  imageUrl: string;
 };
 
 type Props = {
@@ -22,40 +22,31 @@ type Props = {
 
 export default function PlacePopup({ place, onClose }: Props) {
   if (!place) return null;
+  useEffect(() => {
+    const root = document.documentElement;
+    const prev = root.style.overflow;
+    root.style.overflow = "hidden";
+    return () => { root.style.overflow = prev; };
+  }, []);
 
   return (
-    <div className = {`${s.container}`}>
-      <button
-        className = {`${s.btnClose}`}
-        onClick={onClose}
-      />
-
-      <div className={`${s.whiteBox}`}>
-        <div className = {`${s.imgContainer}`}>
+    <div className={s.container} role="dialog" aria-modal="true" aria-label={place.nombre}>
+      <button className={s.btnClose} onClick={onClose} aria-label="Cerrar" />
+      <div className={s.infoContainer}>
+        <div className={s.imgContainer}>
           <img
             src={place.imageUrl}
             alt={place.nombre}
-            className={`${s.imgDestination}`}
+            className={s.imgDestination}
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).src = "/rio.png";
             }}
           />
         </div>
 
-        <div className = {`${s.infoContainer}`}>
-          <div className = {`${s.titleContainer}`}>
-            <h3 className={`${s.title}`}>{place.nombre}</h3>
-            <button
-              onClick={onClose}
-              className={`${s.btnCloseText}`}
-            >
-              ✕
-            </button>
-          </div>
-
-          <p className = {`${s.description}`}>
-            {place.description}
-          </p>
+        <div className={s.titleContainer}>
+          <h3 className={s.title}>{place.nombre}</h3>
+          <p className={s.description}>{place.description}</p>
         </div>
       </div>
     </div>

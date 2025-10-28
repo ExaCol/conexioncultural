@@ -15,16 +15,17 @@ export const metadata: Metadata = {
 
 export default function MapaGualanday() {
   return (
-    <div>
-      <h1>Conexión Cultural</h1>
-      <h2>Mapa de Gualanday</h2>
-      <Mapa />
-      <h3 className = {`${s.title}`} >Ubicación en el Mapa</h3>
-      <p className = {`${s.txt}`}>
-        Aquí puedes ver la localización exacta deGualanday, Coello Tolima en el
-        mapa. click en el botón de navegación para ver la descripción del
-        destino.
-      </p>
-    </div>
+    <main className="page">
+      <div>
+        <h2>Mapa de Gualanday</h2>
+        <Mapa />
+        <h3 className={`${s.title}`}>Ubicación en el Mapa</h3>
+        <p className={`${s.txt}`}>
+          Aquí puedes ver la localización exacta deGualanday, Coello Tolima en
+          el mapa. click en el botón de navegación para ver la descripción del
+          destino.
+        </p>
+      </div>
+    </main>
   );
 }
