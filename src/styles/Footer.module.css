@@ -24,10 +24,12 @@ Footer CSS
   margin: 0 !important;
 }
 
+/*
 .footer:hover{
   transform: translateY(-5px);
   transition: all 0.3s ease;
-}
+}*/
+
 .brand {
   display: flex;
   justify-content: center;

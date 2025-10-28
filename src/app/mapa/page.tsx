@@ -21,7 +21,7 @@ export default function MapaGualanday() {
         <Mapa />
         <h3 className={`${s.title}`}>Ubicación en el Mapa</h3>
         <p className={`${s.txt}`}>
-          Aquí puedes ver la localización exacta deGualanday, Coello Tolima en
+          Aquí puedes ver la localización exacta de Gualanday, Coello Tolima en
           el mapa. click en el botón de navegación para ver la descripción del
           destino.
         </p>

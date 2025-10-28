@@ -25,7 +25,7 @@ export default function Home() {
           económico y cultural.
         </p>
       </section>
-      <section id="about-us">
+      <section style = {{marginTop: "10px"}} id="about-us">
         <h2>Nuestro Equipo</h2>
         <div id="team-members">
           <div>
