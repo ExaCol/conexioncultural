@@ -3,32 +3,47 @@ Developed by EXA
 Version 1.0
 Footer CSS
 */
+.footer * { 
+  box-sizing: border-box; 
+}
 
 .footer {
-  background: var(--color-white);
-  border-top: 1px solid var(--border);
+  background: var(--footerColour);
+  border-top: 40px solid var(--border);
+  border-radius: 30px 30px 0px 0px;
+  
 }
 
 .footer .container {
   display: flex;
   flex-direction: column;
-  align-items: center;   
+  align-items: stretch !important;   
   gap: 8px;
+  width: 100%;
+  padding: 0 !important;
+  margin: 0 !important;
 }
+
+/*
+.footer:hover{
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}*/
+
 .brand {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  padding: 16px 0;
+  margin-top: 20px;
+  width: 100%;
 }
 
 .brandLink {
-  display: inline-block;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  padding: 16px auto;
+  padding: 16px 0;
   text-decoration: none;
   color: var(--color-black);
 }
@@ -43,8 +58,16 @@ Footer CSS
 }
 
 .bottom {
-  padding: 12px 0 20px;
+  padding: 0px 0 5px;
   text-align: center;
   color: var(--color-holder);
+}
+
+.social{
+  padding-top: 10px;
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 

@@ -5,13 +5,14 @@ Target Component
 */
 
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
+import s from "@/styles/Target.module.css";
 
 export type Place = {
   id: string;
   nombre: string;
   description: string;
-  imageUrl: string; 
+  imageUrl: string;
 };
 
 type Props = {
@@ -21,45 +22,31 @@ type Props = {
 
 export default function PlacePopup({ place, onClose }: Props) {
   if (!place) return null;
+  useEffect(() => {
+    const root = document.documentElement;
+    const prev = root.style.overflow;
+    root.style.overflow = "hidden";
+    return () => { root.style.overflow = prev; };
+  }, []);
 
   return (
-    <div
-      role="dialog"
-      aria-modal
-      className="fixed inset-0 z-[9999] flex items-center justify-center"
-    >
-      <button
-        aria-label="Cerrar"
-        onClick={onClose}
-        className="absolute inset-0 bg-black/40"
-      />
-
-      <div className="relative w-[92%] max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl">
-        <div className="h-48 w-full overflow-hidden bg-gray-100">
+    <div className={s.container} role="dialog" aria-modal="true" aria-label={place.nombre}>
+      <button className={s.btnClose} onClick={onClose} aria-label="Cerrar" />
+      <div className={s.infoContainer}>
+        <div className={s.imgContainer}>
           <img
             src={place.imageUrl}
             alt={place.nombre}
-            className="h-full w-full object-cover"
+            className={s.imgDestination}
             onError={(e) => {
-              (e.currentTarget as HTMLImageElement).src = "/fallback.jpg";
+              (e.currentTarget as HTMLImageElement).src = "/rio.png";
             }}
           />
         </div>
 
-        <div className="p-5">
-          <div className="mb-2 flex items-start justify-between">
-            <h3 className="text-lg font-semibold">{place.nombre}</h3>
-            <button
-              onClick={onClose}
-              className="rounded-full border px-3 py-1 text-sm hover:bg-gray-50"
-            >
-              ✕
-            </button>
-          </div>
-
-          <p className="text-sm text-gray-700 leading-relaxed">
-            {place.description}
-          </p>
+        <div className={s.titleContainer}>
+          <h3 className={s.title}>{place.nombre}</h3>
+          <p className={s.description}>{place.description}</p>
         </div>
       </div>
     </div>

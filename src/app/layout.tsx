@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="es">
       <body className="layout">
         <Header />
-        {children}
+        <main className="page">{children}</main>
         <Footer />
       </body>
     </html>
